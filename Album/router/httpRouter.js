@@ -14,14 +14,6 @@ function indexPanel(res){
 	})
 }
 
-function handleAlbum(res,pathArr){
-	let dirname = pathArr[1];
-}
-
-function handlePhoto(res,pathArr){
-	
-}
-
 function getAllAlbumNames(res){
 	let rsDir = [];
 	let filePath = path.join(rootPath,"userImg");
