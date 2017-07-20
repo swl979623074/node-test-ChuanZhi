@@ -1,0 +1,22 @@
+html,body{
+	height: 100%;
+	margin: 0 10%;
+}
+.header{
+	padding-top: 30px;
+	border-bottom: 1px solid #CCC;				
+}
+.content{
+	margin-top: 0px;
+}
+.ablum{
+	width:150px;
+	height:100px;
+}
+li{
+	list-style:none;
+	float:left;
+	padding:20px;
+	text-align:center;
+	cursor:pointer;
+}

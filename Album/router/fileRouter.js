@@ -6,14 +6,15 @@ const path = require("path");
 const mime = require("./mime.json");
 const rootPath = path.join(__dirname,"..","public");
 
-let pathname;
-let extname;
-
 function handleFavicon(req,res){
+	let pathname = url.parse(req.url).pathname;
+	let extname = path.extname(pathname);
 	let iconPath = path.join(rootPath,"icon",pathname);
+	
 	fs.readFile(iconPath,function(err,data){
 		if(err){
-			errorHandler(res);
+			console.log(err);
+			errorHandler(req,res);
 		}else{
 			res.writeHead(200,{"Content-Type":mime[extname],"charset":"UTF-8"});
 			res.end(data);	
@@ -23,18 +24,22 @@ function handleFavicon(req,res){
 }
 
 function handleStaticFile(req,res){
+	let pathname = url.parse(req.url).pathname;
+	let extname = path.extname(pathname);
 	let filePath = path.join(rootPath,pathname);
-	fs.readFile("./public"+filePath,function(err,data){
+	fs.readFile(filePath,function(err,data){
 		if(err){
-			errorHandler(res)
+			console.log(err);
+			errorHandler(req,res);
 		}else{
-			res.writeHead(200,{"Content-Type":mime[extname],"charset":"UTF-8"})
+			res.writeHead(200,{"Content-Type":mime[extname],"charset":"UTF-8"});			
 			res.end(data);
 		}
 	})
 }
 
-function errorHandler(res){
+function errorHandler(req,res){
+	let pathname = url.parse(req.url).pathname;
 	res.writeHead(404,{"Content-Type":"text/html","charset":"UTF-8"});
 	res.write("<h1>Not Found 404</h1>");
 	res.write("<h3>Can't Find The Request Source: "+pathname+"</h3>");
@@ -42,9 +47,9 @@ function errorHandler(res){
 }
 
 exports.handleFile = function(req,res){
-	pathname = url.parse(req.url).pathname;
-	extname = path.extname(pathname);
-	
+	var pathname = url.parse(req.url).pathname;
+	var extname = path.extname(pathname);
+	console.log("请求资源："+pathname)
 	if(".ico" == extname){
 		handleFavicon(req,res);
 	}else{

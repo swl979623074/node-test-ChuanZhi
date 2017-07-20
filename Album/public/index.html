@@ -3,38 +3,30 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Album</title>
-		<style>
-			html,body{
-				height: 100%;
-				margin: 0 10%;
-			}
-			.header{
-				padding-top: 30px;
-				border-bottom: 1px solid #CCC;				
-			}
-			.content{
-				margin-top: 0px;
-			}
-			.ablum{
-				width:100px;
-				height:150px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="/css/index.css" />
 	</head>
-	<body>
+	<body ng-app="myApp" ng-controller="myCtl">
 		<div class="header">
 			<h1 style="margin: 0px;">Album</h1>
 			
 		</div>
 		<div style="font-size: 12px;margin:30px 10px 10px;">
-			<span >当前位置：home</span>
+			<span >当前位置：<a href="/" style="color:blue;">home</a> {{albumName}}</span>
 		</div>
-		<div class="content">
+		<div  class="content">
 			<ul>
-				<li>
-					<img class="ablum" src="/img/album.jpg"/>
+				<li ng-repeat="data in datas">
+					<img class="ablum" src="/img/album.jpg" ng-click="getphotos(data)"/>
+					<p style="color:blue;" class="description" ng-click="getphotos(data)">{{data}}</p>
+				</li>
+				<li ng-repeat="photo in photos" class="photo">
+					<img class="ablum" ng-src="{{photo.url}}"/>
+					<p class="description" >{{photo.name}}</p>
 				</li>
 			</ul>
 		</div>
+		
+		<script type="text/javascript" src="/js/angular.js"></script>
+		<script type="text/javascript" src="/js/index.js"></script>
 	</body>
 </html>
